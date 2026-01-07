@@ -1,0 +1,83 @@
+/* --- الجزء الخاص بالساعة والتاريخ --- */
+let is24Hour = true;
+
+function updateClock() {
+    const now = new Date();
+    let h = now.getHours();
+    let m = now.getMinutes();
+    let s = now.getSeconds();
+    let ampm = '';
+
+    // التحية
+    const greeting = h < 12 ? 'GOOD MORNING' : (h < 18 ? 'GOOD AFTERNOON' : 'GOOD EVENING');
+    document.getElementById('greeting').innerText = greeting;
+
+    // تحويل الصيغة
+    if (!is24Hour) {
+        ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+    }
+
+    // إضافة الأصفار
+    document.getElementById('clock').innerText = 
+        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    document.getElementById('ampm').innerText = ampm;
+
+    // التاريخ
+    const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+    document.getElementById('date').innerText = now.toLocaleDateString('en-US', options);
+}
+
+document.getElementById('format-btn').addEventListener('click', () => {
+    is24Hour = !is24Hour;
+    updateClock();
+});
+
+setInterval(updateClock, 1000);
+updateClock();
+
+/* --- الجزء الخاص بالخلفيات --- */
+const backgrounds = [
+    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920',
+    'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=1920',
+    'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1920',
+    'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1920'
+];
+let bgIndex = 0;
+
+document.getElementById('bg-btn').addEventListener('click', () => {
+    bgIndex = (bgIndex + 1) % backgrounds.length;
+    document.body.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
+});
+
+/* --- الجزء الخاص بساعة الإيقاف (Stopwatch) --- */
+let [swSeconds, swMinutes, swHours] = [0, 0, 0];
+let swDisplay = document.getElementById('stopwatch-display');
+let swTimer = null;
+
+function stopWatch() {
+    swSeconds++;
+    if (swSeconds == 60) { swSeconds = 0; swMinutes++; }
+    if (swMinutes == 60) { swMinutes = 0; swHours++; }
+
+    let h = swHours < 10 ? "0" + swHours : swHours;
+    let m = swMinutes < 10 ? "0" + swMinutes : swMinutes;
+    let s = swSeconds < 10 ? "0" + swSeconds : swSeconds;
+
+    swDisplay.innerHTML = `${h}:${m}:${s}`;
+}
+
+document.getElementById('start-timer').addEventListener('click', () => {
+    if(swTimer !== null) clearInterval(swTimer);
+    swTimer = setInterval(stopWatch, 1000);
+});
+
+document.getElementById('stop-timer').addEventListener('click', () => {
+    clearInterval(swTimer);
+});
+
+document.getElementById('reset-timer').addEventListener('click', () => {
+    clearInterval(swTimer);
+    [swSeconds, swMinutes, swHours] = [0, 0, 0];
+    swDisplay.innerHTML = "00:00:00";
+});
