@@ -1,0 +1,65 @@
+body {
+    background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* الصندوق الزجاجي */
+.main-container {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    width: 350px;
+}
+
+.top-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+button {
+    border: none;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    transition: transform 0.1s;
+}
+
+button:active { transform: scale(0.95); }
+
+/* ألوان الأزرار */
+.btn-green { background-color: #2ecc71; color: white; }
+.btn-red { background-color: #e74c3c; color: white; }
+.btn-yellow { background-color: #f1c40f; color: black; }
+#bg-btn, #format-btn { background-color: rgba(255,255,255,0.2); color: white; }
+
+/* تنسيقات الساعة */
+.time-wrapper {
+    font-size: 50px;
+    margin: 15px 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#ampm { font-size: 20px; }
+.greeting { color: #aaa; font-size: 14px; letter-spacing: 2px; }
+.date { font-size: 16px; color: #ddd; margin-bottom: 20px; }
+
+hr { border: 0; height: 1px; background: rgba(255,255,255,0.2); margin: 20px 0; }
+
+/* تنسيقات الستوب ووتش */
+.stopwatch-section h3 { margin: 0 0 10px 0; font-size: 16px; color: #aaa; }
+#stopwatch-display { font-size: 35px; margin-bottom: 15px; color: #f1c40f; }
